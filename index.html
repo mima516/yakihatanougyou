@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>焼畑農業ゲーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #game-container {
+            display: none;
+        }
+        #clear-container {
+            display: none;
+        }
+        #status {
+            margin: 20px;
+        }
+        #farmland-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            gap: 5px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+        .field {
+            width: 80px;
+            height: 80px;
+            background-color: lightgreen;
+            display: inline-block;
+            border: 2px solid darkgreen;
+            cursor: pointer;
+            position: relative;
+        }
+        .field.selected {
+            background-color: yellow;
+        }
+        .burned {
+            background-color: brown;
+        }
+        .resting {
+            background-color: lightblue;
+        }
+        .farming {
+            background-color: green;
+        }
+        .barren {
+            background-color: gray;
+        }
+        .continue-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: white;
+        }
+        #target-score {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>焼畑農業ゲーム</h1>
+    <div id="start-container">
+        <p>簡単なルール:</p>
+        <ul>
+            <li>各フィールドを選択して火入れすることでスコアを獲得。</li>
+            <li>年を進めるたびにスコアが増加。</li>
+            <li>環境状態がマイナスになるとゲームオーバー。</li>
+            <li>50年以内に目標スコアに到達しなければ飢死。</li>
+        </ul>
+        <label for="level-select">レベルを選択してください:</label>
+        <select id="level-select">
+            <option value="easy">簡単</option>
+            <option value="medium">普通</option>
+            <option value="hard">難しい</option>
+        </select>
+        <button onclick="startGame()">ゲーム開始</button>
+    </div>
+    <div id="game-container">
+        <div id="status">
+            <p>スコア: <span id="score">0</span></p>
+            <p>環境状態: <span id="environment">100</span></p>
+            <p>目標スコア: <span id="target-score">0</span></p>
+            <p>年: <span id="year">1</span></p>
+        </div>
+        <div id="farmland-grid"></div>
+        <div id="controls">
+            <button onclick="selectAction('burn')">火入れして農業開始</button>
+            <button onclick="advanceYear()">1年進める</button>
+        </div>
+    </div>
+    <div id="clear-container">
+        <p id="game-over-message"></p>
+        <button onclick="resetGame()">再挑戦</button>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
